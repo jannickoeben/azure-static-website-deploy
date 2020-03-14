@@ -50,10 +50,8 @@ if [ -z "$SOURCE_DIR" ]; then
 fi
 
 apt-get install python3.6
- 
-curl -L https://aka.ms/InstallAzureCliBundled -o azure-cli_bundle.tar.gz
-tar -xvzf azure-cli_bundle.tar.gz
-azure-cli_bundle_*/installer
+
+pip install --pre azure-cli
 
 # Login
 az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_SECRET} --tenant ${AZURE_TENANT_ID}
