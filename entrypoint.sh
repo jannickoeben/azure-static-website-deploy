@@ -49,9 +49,7 @@ if [ -z "$SOURCE_DIR" ]; then
   exit 1
 fi
 
-apt-get install python3-pip
-pip3 --version
-pip3 install azure-cli
+curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # Login
 az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_SECRET} --tenant ${AZURE_TENANT_ID}
