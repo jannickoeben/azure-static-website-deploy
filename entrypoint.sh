@@ -49,8 +49,8 @@ if [ -z "$SOURCE_DIR" ]; then
   exit 1
 fi
 
-apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-
+apt-get install python3.6
+ 
 curl -L https://aka.ms/InstallAzureCliBundled -o azure-cli_bundle.tar.gz
 tar -xvzf azure-cli_bundle.tar.gz
 azure-cli_bundle_*/installer
