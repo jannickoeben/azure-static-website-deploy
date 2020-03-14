@@ -49,7 +49,11 @@ if [ -z "$SOURCE_DIR" ]; then
   exit 1
 fi
 
-curl -L https://aka.ms/InstallAzureCli | bash
+apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
+
+curl -L https://aka.ms/InstallAzureCliBundled -o azure-cli_bundle.tar.gz
+tar -xvzf azure-cli_bundle.tar.gz
+azure-cli_bundle_*/installer
 
 # Login
 az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_SECRET} --tenant ${AZURE_TENANT_ID}
