@@ -1,50 +1,45 @@
-# GitHub Action to Upload to Azure Storage
 
-> **⚠️ Note:** To use this action, you must have access to the [GitHub Actions](https://github.com/features/actions) feature.
+> **This action has been updated from the first beta version of GH Actions to the new beta version of GH Actions. See below for the new structure required in your workflow.**
 
-This action is designed to use the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) to enable static website and upload a directory of your choice to your Azure Storage account.
+# A GitHub Action for Custom Jekyll Builds on GitHub Pages
 
-## Usage
+A GitHub Action for building and deploying a Jekyll repo back to its `gh-pages` branch. 
 
-### Example
+**Why not just let GitHub Pages build it? Becaues this way we can use our own custom Jekyll plugins and build scripts.**
 
-Place in a `.yml` file such as this one in your `.github/workflows` folder. [Refer to the documentation on workflow YAML syntax here.](https://help.github.com/en/articles/workflow-syntax-for-github-actions)
+## Secrets
+* `GITHUB_TOKEN`: Access key scoped to the repository, we need this to push the site files back to the repo. (specify in workflow)
+  
+## Environment Variables
+* `GITHUB_ACTOR`: Username of repo owner or object intiating the action (GitHub Provides)
+* `GITHUB_REPO`: Owner/Repository (GitHub Provides)
 
-```yaml
-name: Upload To Azure
-on: push
+## Example
 
-jobs:
-  deploy:
+```yml
+name: Jekyll Deploy
+
+on: [push]
+
+jobs: 
+  build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: feeloor/azure-static-website-deploy@master
-        env:
-          SOURCE_DIR: "./public"
-          AZURE_CLIENT_ID: "<azure-client-id>"
-          AZURE_TENANT_ID: "<azure-tenant-id>"
-          AZURE_SECRET: "<azure-secret>"
-          AZURE_SUBSCRIPTION_ID: "<azure-subscription-id>"
-          AZURE_STORAGE_ACCOUNT_NAME: "<azure-storage-account-name>"
-          AZURE_INDEX_DOCUMENT_NAME: "<index-document-name>"
-          AZURE_ERROR_DOCUMENT_NAME: "<error-document-name>"
+      - uses: actions/checkout@v1
+      - name: Build & Deploy to GitHub Pages
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_ACTOR: ${{ secrets.GITHUB_ACTOR }}
+        uses: BryanSchuetz/jekyll-deploy-gh-pages@master
 ```
 
-### Required Variables
+Clones the repo, builds the site, and commits it back to the gh-pages branch of the repository. That's it. Just add the above example to a `main.yml` file in the `.github/workflows` directory of your repository—see caveats below. 
 
-| Key | Value | Type | Required |
-| ------------- | ------------- | ------------- | ------------- |
-| `SOURCE_DIR` | The name of the directory you want to upload | `env` | **Yes** |
-| `AZURE_CLIENT_ID` | Your Azure Client ID. | `secret` | **Yes** |
-| `AZURE_SECRET` | Your Azure Secret. | `secret` | **Yes** |
-| `AZURE_TENANT_ID` | Your Azure Tenant ID. | `secret` | **Yes** |
-| `AZURE_SUBSCRIPTION_ID` | Your Azure Subscription ID. | `secret` | **Yes** |
-| `AZURE_STORAGE_ACCOUNT_NAME` | Your Azure Storage Account Name. | `secret` | **Yes** |
-| `AZURE_INDEX_DOCUMENT_NAME` | The index document that you specify when you enable static website hosting, appears when users open the site and don't specify a specific file. [More Information Here](https://docs.microsoft.com/en-US/azure/storage/blobs/storage-blob-static-website#viewing-content) | `env` | **Yes** |
-| `AZURE_ERROR_DOCUMENT_NAME` | If the server returns a 404 error, and you have not specified an error document when you enabled the website, then a default 404 page is returned to the user. [More Information Here](https://docs.microsoft.com/en-US/azure/storage/blobs/storage-blob-static-website#viewing-content) | `secret` | **No** |
+## Caveats
 
-
-## License
-
-This project is distributed under the [MIT license](LICENSE.md).
+* This uses the v2 of the Actions beta—note the Yaml based workflow syntax—you must have access to the beta release of actions.
+* **`GITHUB_TOKEN`, privileges are still being sorted out by the Actions/GH-Pages team. Changes pushed to your GH-pages branch will only be picked up by the Github Pages server if your workflow is in a private repository.**
+* Needs a .gemfile
+* `destination:` should be set to `./build` in your _config.yml file—as God demands.
+* Be sure that any custom gems needed are included in your Gemfile.

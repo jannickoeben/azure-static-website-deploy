@@ -1,15 +1,12 @@
 # action.yml
-name: "Jekyll to Azure Static Website Deploy"
-description: "Deploys Jekyll website to Azure Storage and enables Static Website"
+name: "Azure Static Website Deploy"
+description: "Deploys code to Azure Storage and enables Static Website"
 branding:
   icon: "box"
   color: "green"
 inputs:
-  BUILD_DIR:
-    description: "The name of the directory you want to build, like "./Blog/Blog/".
-    required: true
   SOURCE_DIR:
-    description: "The name of the directory you want to upload. With Jekyll usually ./_site"
+    description: "The name of the directory you want to upload"
     required: true
   AZURE_CLIENT_ID:
     description: "Your Azure Client ID"

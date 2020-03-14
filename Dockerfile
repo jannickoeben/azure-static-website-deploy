@@ -1,12 +1,13 @@
+FROM ruby:2.4.0	
+ENV RUBYGEMS_VERSION=2.7.0
+
 FROM microsoft/azure-cli
 
-LABEL "com.github.actions.name"="Deploy repo to Azure Storage"
-LABEL "com.github.actions.description"="Deploys code to Azure Storage and enables Static Website"
-LABEL "com.github.actions.icon"="box"
-LABEL "com.github.actions.color"="green"
-LABEL "repository"="https://github.com/feeloor/azure-static-website-deploy"
-LABEL "homepage"="https://github.com/feeloor/azure-static-website-deploy"
-LABEL "maintainer"="Felix Khoi <feeloor@github.com>"
+# Set default locale for the environment	
+ENV LC_ALL C.UTF-8	
+ENV LANG en_US.UTF-8	
+ENV LANGUAGE en_US.UTF-8	
+
 
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x entrypoint.sh
