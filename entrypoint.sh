@@ -50,12 +50,16 @@ if [ -z "$SOURCE_DIR" ]; then
 fi
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+echo '👍 AZ-CLI INSTALLED!'
 
 # Login
 az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_SECRET} --tenant ${AZURE_TENANT_ID}
+echo '👍 az login'
+
 
 # Set subscription id
 az account set --subscription ${AZURE_SUBSCRIPTION_ID}
+echo '👍 az account set'
 
 # Enable Static Website
 if [ -z "$AZURE_ERROR_DOCUMENT_NAME" ]; then
@@ -63,6 +67,8 @@ if [ -z "$AZURE_ERROR_DOCUMENT_NAME" ]; then
 else
     az storage blob service-properties update --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --static-website --404-document ${AZURE_ERROR_DOCUMENT_NAME} --index-document ${AZURE_INDEX_DOCUMENT_NAME}
 fi
+echo '👍 az storage blob service-properties update'
 
 # Upload source to storage
 az storage blob upload-batch -s ${SOURCE_DIR} -d \$web --account-name ${AZURE_STORAGE_ACCOUNT_NAME}
+echo '👍 az storage blob upload-batch'
