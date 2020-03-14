@@ -6,7 +6,7 @@ branding:
   color: "green"
 inputs:
   BUILD_DIR:
-    description: "The name of the directory you want to build, like "./Blog/Blog/".
+    description: "The name of the directory you want to build, like './Blog/Blog/'"
     required: true
   SOURCE_DIR:
     description: "The name of the directory you want to upload. With Jekyll usually ./_site"
