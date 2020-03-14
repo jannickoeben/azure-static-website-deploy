@@ -63,9 +63,9 @@ echo '👍 az account set'
 
 # Enable Static Website
 if [ -z "$AZURE_ERROR_DOCUMENT_NAME" ]; then
-    az storage blob service-properties update --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --static-website --index-document ${AZURE_INDEX_DOCUMENT_NAME}
+    az storage blob service-properties update --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --static-website true --index-document ${AZURE_INDEX_DOCUMENT_NAME} --auth-mode login
 else
-    az storage blob service-properties update --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --static-website --404-document ${AZURE_ERROR_DOCUMENT_NAME} --index-document ${AZURE_INDEX_DOCUMENT_NAME}
+    az storage blob service-properties update --account-name ${AZURE_STORAGE_ACCOUNT_NAME} --static-website true --404-document ${AZURE_ERROR_DOCUMENT_NAME} --index-document ${AZURE_INDEX_DOCUMENT_NAME} --auth-mode login
 fi
 echo '👍 az storage blob service-properties update'
 
