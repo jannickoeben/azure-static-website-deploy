@@ -7,11 +7,11 @@ if [ -z "$BUILD_DIR" ]; then
   exit 1
 fi
 
+cd ${BUILD_DIR}
 echo '👍 ENTRYPOINT HAS STARTED—INSTALLING THE GEM BUNDLE'
 bundle install
 bundle list | grep "jekyll ("
 echo '👍 BUNDLE INSTALLED—BUILDING THE SITE'
-cd ${BUILD_DIR}
 bundle exec jekyll build
 echo '👍 THE SITE IS BUILT—PUSHING IT BACK TO GITHUB-PAGES'
 
