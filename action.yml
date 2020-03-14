@@ -36,13 +36,3 @@ outputs:
 runs:
   using: "docker"
   image: "Dockerfile"
-  args:
-    - ${{ inputs.BUILD_DIR }}
-    - ${{ inputs.SOURCE_DIR }}
-    - ${{ inputs.AZURE_CLIENT_ID }}
-    - ${{ inputs.AZURE_TENANT_ID }}
-    - ${{ inputs.AZURE_SECRET }}
-    - ${{ inputs.AZURE_SUBSCRIPTION_ID }}
-    - ${{ inputs.AZURE_STORAGE_ACCOUNT_NAME }}
-    - ${{ inputs.AZURE_INDEX_DOCUMENT_NAME }}
-    - ${{ inputs.AZURE_ERROR_DOCUMENT_NAME }}
