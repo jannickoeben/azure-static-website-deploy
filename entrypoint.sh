@@ -49,6 +49,8 @@ if [ -z "$SOURCE_DIR" ]; then
   exit 1
 fi
 
+curl -L https://aka.ms/InstallAzureCli | bash
+
 # Login
 az login --service-principal --username ${AZURE_CLIENT_ID} --password ${AZURE_SECRET} --tenant ${AZURE_TENANT_ID}
 
